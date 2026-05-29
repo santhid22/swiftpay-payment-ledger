@@ -1,0 +1,106 @@
+# -----------------------------------------------------------------------------
+# SwiftPay - Production-grade .gitignore
+# Java 21 / Spring Boot / Gradle multi-project monorepo
+# -----------------------------------------------------------------------------
+
+# --- OS files ---
+.DS_Store
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# --- IDE/editor files ---
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+
+# --- Cursor / local agent artifacts ---
+.cursor/
+
+# --- Build outputs ---
+build/
+**/build/
+out/
+target/
+bin/
+
+# --- Gradle ---
+.gradle/
+gradle-app.setting
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
+
+# --- Java / JVM ---
+*.class
+*.jar
+*.war
+*.ear
+hs_err_pid*
+replay_pid*
+
+# --- Logs & runtime artifacts ---
+logs/
+*.log
+*.pid
+*.seed
+*.pid.lock
+*.stackdump
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- Test artifacts ---
+**/surefire-reports/
+**/failsafe-reports/
+**/test-results/
+**/jacoco/
+*.exec
+.nyc_output/
+coverage/
+
+# --- Spring Boot ---
+spring.log
+application-*.local.yml
+application-*.local.yaml
+application-local.yml
+application-local.yaml
+
+# --- Environment & secrets ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.jks
+secrets/
+credentials/
+
+# --- Docker / container artifacts ---
+*.tar
+*.tgz
+docker-data/
+network_traffic.pcap
+
+# --- Load/performance test outputs ---
+load-testing/results/
+*.csv
+*.jsonl
+*.jtl
+k6-results/
+
+# --- Temporary files ---
+tmp/
+temp/
+*.tmp
+*.swp
+*.swo
+*~
+
+
+anon-test.js
+k6.exe
+gradle/wrapper/caches/

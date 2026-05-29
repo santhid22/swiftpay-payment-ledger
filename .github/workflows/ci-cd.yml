@@ -1,0 +1,42 @@
+name: SwiftPay CI-CD
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  build-test-and-verify-images:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21 (Eclipse Temurin)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: gradle
+
+      - name: Make Gradle wrapper executable
+        run: chmod +x ./gradlew
+
+      - name: Compile with Gradle wrapper
+        run: ./gradlew clean compileJava
+
+      - name: Run unit and integration tests
+        run: |
+          if ./gradlew tasks --all | grep -q "integrationTest"; then
+            ./gradlew test integrationTest --continue
+          else
+            ./gradlew test --continue
+          fi
+
+      - name: Dry-run Docker build for transaction-gateway
+        run: docker build -f transaction-gateway/Dockerfile -t swiftpay/transaction-gateway:ci .
+
+      - name: Dry-run Docker build for ledger-service
+        run: docker build -f ledger-service/Dockerfile -t swiftpay/ledger-service:ci .
